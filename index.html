@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shivanand Tiwari — Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#122338;
+    --ink-soft:#233953;
+    --paper:#F3F6F7;
+    --panel:#FFFFFF;
+    --slate:#5B6B79;
+    --slate-light:#8B99A5;
+    --line:#DCE3E7;
+    --teal:#1B7F79;
+    --teal-dim:#DCEEEC;
+    --amber:#D98C2B;
+    --amber-dim:#FBEBD3;
+    --risk:#C4483B;
+    --risk-dim:#F7E1DE;
+    --radius:10px;
+    --display:'Space Grotesk', sans-serif;
+    --body:'Inter', sans-serif;
+    --mono:'IBM Plex Mono', monospace;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  :focus-visible{outline:2.5px solid var(--teal); outline-offset:3px; border-radius:3px;}
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 32px;}
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(243,246,247,0.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 32px;
+    max-width:1080px; margin:0 auto;
+  }
+  .nav-mark{
+    font-family:var(--mono); font-size:17px; font-weight:700; letter-spacing:0.02em;
+    display:flex; align-items:center; gap:9px;
+  }
+  .nav-mark .dot{width:9px; height:9px; border-radius:50%; background:var(--teal); display:inline-block;}
+  .nav-links{display:flex; gap:28px; list-style:none; font-family:var(--mono); font-size:13px;}
+  .nav-links a{text-decoration:none; color:var(--slate); transition:color .15s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links{align-items:center;}
+  .nav-cta{
+    font-family:var(--mono); font-size:13px; background:var(--ink); color:var(--paper);
+    padding:8px 14px; border-radius:6px; text-decoration:none; white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--teal);}
+  @media (max-width:760px){
+    .nav-links{display:none;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{padding:64px 0 40px;}
+  .eyebrow{
+    font-family:var(--mono); font-size:13px; color:var(--teal);
+    text-transform:uppercase; letter-spacing:0.12em;
+    display:flex; align-items:center; gap:10px; margin-bottom:18px;
+  }
+  .eyebrow::before{content:''; width:22px; height:1px; background:var(--teal);}
+
+  .name-mark{
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(2.8rem, 7vw, 5.2rem);
+    line-height:1; color:var(--ink); letter-spacing:-0.01em;
+    margin-bottom:20px;
+  }
+  .name-mark .accent{color:var(--teal);}
+
+  h1.title{
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(1.7rem, 3.6vw, 2.5rem);
+    line-height:1.1; color:var(--ink-soft); max-width:16ch;
+  }
+  .subtitle{
+    font-size:1.08rem; color:var(--slate); max-width:52ch; margin-top:20px;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:18px; margin-top:26px;
+    font-family:var(--mono); font-size:13px; color:var(--slate);
+  }
+  .hero-meta a{text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px; transition:border-color .15s, color .15s;}
+  .hero-meta a:hover{color:var(--teal); border-color:var(--teal);}
+
+  /* ---------- DASHBOARD SIGNATURE ---------- */
+  .dash{
+    margin-top:48px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:26px 26px 22px;
+    box-shadow:0 1px 2px rgba(18,35,56,0.04), 0 12px 32px -18px rgba(18,35,56,0.18);
+  }
+  .dash-head{
+    display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;
+    margin-bottom:20px; padding-bottom:14px; border-bottom:1px dashed var(--line);
+  }
+  .dash-head h2{
+    font-family:var(--mono); font-size:12.5px; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--slate);
+  }
+  .dash-head .live{
+    font-family:var(--mono); font-size:11.5px; color:var(--teal); display:flex; align-items:center; gap:6px;
+  }
+  .live .blip{width:6px; height:6px; border-radius:50%; background:var(--teal); animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.25;}}
+
+  .kpi-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:22px;
+  }
+  @media (max-width:760px){ .kpi-grid{grid-template-columns:repeat(2,1fr);} }
+
+  .kpi{
+    background:var(--paper); border:1px solid var(--line); border-radius:8px;
+    padding:14px 14px 12px;
+  }
+  .kpi .num{
+    font-family:var(--display); font-weight:700; font-size:1.7rem; color:var(--ink);
+    display:block; line-height:1.1;
+  }
+  .kpi.risk .num{color:var(--risk);}
+  .kpi .lbl{
+    font-family:var(--mono); font-size:11px; color:var(--slate); text-transform:uppercase; letter-spacing:0.04em;
+    display:block; margin-top:4px;
+  }
+
+  .bar-row{display:flex; align-items:center; gap:14px; margin-bottom:12px;}
+  .bar-row:last-child{margin-bottom:0;}
+  .bar-label{
+    font-family:var(--mono); font-size:12px; color:var(--slate); width:168px; flex-shrink:0;
+  }
+  .bar-track{
+    flex:1; height:20px; background:var(--paper); border-radius:5px; overflow:hidden; border:1px solid var(--line);
+    position:relative;
+  }
+  .bar-fill{
+    height:100%; border-radius:4px 0 0 4px;
+    width:0%;
+    transition:width 1.1s cubic-bezier(.2,.8,.2,1);
+  }
+  .bar-fill.teal{background:var(--teal);}
+  .bar-fill.risk{background:var(--risk);}
+  .bar-pct{
+    font-family:var(--mono); font-size:12px; color:var(--ink); width:40px; text-align:right; flex-shrink:0;
+  }
+  .dash-foot{
+    margin-top:18px; padding-top:14px; border-top:1px dashed var(--line);
+    font-family:var(--mono); font-size:11.5px; color:var(--slate-light);
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:64px 0;}
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:30px;}
+  .sec-tag{
+    font-family:var(--mono); font-size:12px; color:var(--slate-light); letter-spacing:0.06em;
+  }
+  h2.sec-title{
+    font-family:var(--display); font-size:1.55rem; font-weight:600; color:var(--ink);
+  }
+  .rule{flex:1; height:1px; background:var(--line); margin-left:6px;}
+
+  /* ---------- PROFILE ---------- */
+  .profile-text{
+    max-width:66ch; color:var(--ink-soft); font-size:1.02rem;
+  }
+  .profile-text strong{color:var(--teal); font-weight:600;}
+
+  /* ---------- SKILLS MATRIX ---------- */
+  .matrix{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;
+  }
+  @media (max-width:700px){ .matrix{grid-template-columns:1fr;} }
+  .matrix-cell{background:var(--panel); padding:20px 22px;}
+  .matrix-cell h3{
+    font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.06em;
+    color:var(--teal); margin-bottom:10px;
+  }
+  .matrix-cell p{color:var(--ink-soft); font-size:0.94rem; line-height:1.6;}
+
+  /* ---------- EXPERIENCE ---------- */
+  .exp-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:28px 28px 24px;
+  }
+  .exp-top{
+    display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px;
+    margin-bottom:6px;
+  }
+  .exp-role{font-family:var(--display); font-size:1.25rem; font-weight:600; color:var(--ink);}
+  .exp-org{color:var(--teal); font-weight:600;}
+  .exp-date{font-family:var(--mono); font-size:12.5px; color:var(--slate); white-space:nowrap;}
+  .exp-tech{
+    font-family:var(--mono); font-size:11.5px; color:var(--slate-light); margin:8px 0 18px;
+  }
+  .exp-list{list-style:none;}
+  .exp-list li{
+    position:relative; padding-left:20px; margin-bottom:12px; color:var(--ink-soft); font-size:0.96rem;
+  }
+  .exp-list li::before{
+    content:'—'; position:absolute; left:0; color:var(--slate-light);
+  }
+  .chip{
+    font-family:var(--mono); font-weight:600; font-size:0.86em;
+    background:var(--teal-dim); color:var(--teal); padding:1px 6px; border-radius:4px;
+  }
+  .chip.risk{background:var(--risk-dim); color:var(--risk);}
+  .chip.amber{background:var(--amber-dim); color:var(--amber);}
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media (max-width:760px){ .proj-grid{grid-template-columns:1fr;} }
+  .proj-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:26px; display:flex; flex-direction:column; gap:14px;
+  }
+  .proj-card .proj-date{font-family:var(--mono); font-size:11.5px; color:var(--slate-light);}
+  .proj-card h3{font-family:var(--display); font-size:1.15rem; font-weight:600; color:var(--ink);}
+  .proj-tech{font-family:var(--mono); font-size:11px; color:var(--slate-light);}
+  .proj-card ul{list-style:none;}
+  .proj-card li{
+    position:relative; padding-left:18px; margin-bottom:10px; color:var(--ink-soft); font-size:0.93rem;
+  }
+  .proj-card li::before{content:'—'; position:absolute; left:0; color:var(--slate-light);}
+  .metric-strip{
+    display:flex; gap:10px; margin-top:auto; padding-top:14px; border-top:1px dashed var(--line);
+  }
+  .metric{
+    font-family:var(--mono); text-align:left;
+  }
+  .metric .m-num{display:block; font-family:var(--display); font-weight:700; color:var(--teal); font-size:1.15rem;}
+  .metric .m-lbl{font-size:10.5px; color:var(--slate-light); text-transform:uppercase; letter-spacing:0.04em;}
+
+  /* ---------- GITHUB LIVE FEED ---------- */
+  .gh-status{
+    font-family:var(--mono); font-size:12px; color:var(--slate-light); margin-bottom:18px;
+  }
+  .gh-grid{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:16px;
+  }
+  @media (max-width:760px){ .gh-grid{grid-template-columns:1fr;} }
+  .gh-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    padding:20px 22px; text-decoration:none; color:inherit; display:block;
+    transition:border-color .15s, transform .15s;
+  }
+  .gh-card:hover{border-color:var(--teal); transform:translateY(-2px);}
+  .gh-card-top{display:flex; justify-content:space-between; align-items:baseline; gap:10px;}
+  .gh-name{font-family:var(--display); font-weight:600; font-size:1.02rem; color:var(--ink);}
+  .gh-lang{font-family:var(--mono); font-size:11px; color:var(--teal);}
+  .gh-desc{color:var(--slate); font-size:0.88rem; margin-top:8px; min-height:1.4em;}
+  .gh-meta{
+    display:flex; gap:14px; margin-top:14px; font-family:var(--mono); font-size:11px; color:var(--slate-light);
+  }
+  .gh-empty{
+    font-family:var(--mono); font-size:13px; color:var(--slate); padding:20px 0;
+  }
+  .gh-empty a{color:var(--teal); border-bottom:1px solid var(--teal);}
+
+  /* ---------- EDUCATION / CERTS ---------- */
+  .edu-row{
+    display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;
+    padding:18px 0; border-bottom:1px solid var(--line);
+  }
+  .edu-row:first-child{padding-top:0;}
+  .edu-school{font-weight:600; color:var(--ink);}
+  .edu-date{font-family:var(--mono); font-size:12px; color:var(--slate);}
+  .edu-note{color:var(--slate); font-size:0.9rem; margin-top:4px; max-width:60ch;}
+
+  .cert-list{display:flex; flex-direction:column;}
+  .cert-row{
+    display:flex; justify-content:space-between; gap:12px; padding:14px 0;
+    border-bottom:1px solid var(--line); align-items:baseline; flex-wrap:wrap;
+  }
+  .cert-row:last-child{border-bottom:none;}
+  .cert-name{color:var(--ink-soft); font-size:0.95rem;}
+  .cert-org{font-family:var(--mono); font-size:12px; color:var(--slate-light); white-space:nowrap;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink); color:var(--paper); padding:56px 0 32px; margin-top:40px;
+  }
+  footer .wrap{display:flex; flex-direction:column; gap:26px;}
+  footer h2{
+    font-family:var(--display); font-weight:600; font-size:1.7rem;
+  }
+  footer p{color:#B7C3CC; max-width:48ch;}
+  .foot-links{
+    display:flex; flex-wrap:wrap; gap:22px; font-family:var(--mono); font-size:13.5px;
+  }
+  .foot-links a{
+    text-decoration:none; color:var(--paper); border-bottom:1px solid rgba(243,246,247,0.3); padding-bottom:2px;
+    transition:border-color .15s, color .15s;
+  }
+  .foot-links a:hover{color:var(--amber); border-color:var(--amber);}
+  .foot-bottom{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-family:var(--mono); font-size:11.5px; color:#7C8A94;
+    padding-top:20px; border-top:1px solid rgba(243,246,247,0.12);
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-mark"><span class="dot"></span>SHIVANAND.TIWARI</div>
+    <ul class="nav-links">
+      <li><a href="#profile">Profile</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+    </ul>
+    <a class="nav-cta" href="mailto:shivanand7415@outlook.com">Contact</a>
+  </div>
+</header>
+
+<main class="wrap hero">
+  <div class="name-mark">Shivanand<br><span class="accent">Tiwari</span></div>
+  <div class="eyebrow">Bhopal, India · B.Tech Data Science, 3rd Year</div>
+  <h1 class="title">Turning messy data into decisions that matter.</h1>
+  <p class="subtitle">
+    I'm Shivanand — a data analyst who builds the dashboard someone actually opens on a Monday morning.
+    Recent work: a 7-tab compliance dashboard covering 3,524 students, and a credit-risk model
+    that scores loan applicants at 0.90 ROC-AUC.
+  </p>
+  <div class="hero-meta">
+    <a href="mailto:shivanand7415@outlook.com">shivanand7415@outlook.com</a>
+    <a href="tel:+916232530759">+91 62325 30759</a>
+    <a href="https://linkedin.com/in/shivanand-tiwari" target="_blank" rel="noopener">linkedin.com/in/shivanand-tiwari</a>
+    <a href="https://github.com/Shiv-pbx095" target="_blank" rel="noopener">github.com/Shiv-pbx095</a>
+  </div>
+
+  <!-- SIGNATURE: live-style rebuild of the SEVIS compliance dashboard -->
+  <div class="dash" id="dash">
+    <div class="dash-head">
+      <h2>F-1 Compliance Dashboard — Excellerate, Summer 2026</h2>
+      <div class="live"><span class="blip"></span>rebuilt from delivered Looker Studio report</div>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi"><span class="num">3,524</span><span class="lbl">Students Tracked</span></div>
+      <div class="kpi"><span class="num">66</span><span class="lbl">Countries</span></div>
+      <div class="kpi"><span class="num">10,399</span><span class="lbl">Records Cleaned</span></div>
+      <div class="kpi risk"><span class="num">27,466</span><span class="lbl">Duplicates Removed</span></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Fully compliant</span>
+      <div class="bar-track"><div class="bar-fill teal" data-target="45"></div></div>
+      <span class="bar-pct">45%</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Missing SEVIS fee</span>
+      <div class="bar-track"><div class="bar-fill risk" data-target="53"></div></div>
+      <span class="bar-pct">53%</span>
+    </div>
+    <div class="dash-foot">5 critical risk categories documented · validated via SQL in pgAdmin 4 · delivered to stakeholders</div>
+  </div>
+</main>
+
+<section id="profile">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">01</span><h2 class="sec-title">Profile</h2><div class="rule"></div></div>
+    <p class="profile-text">
+      Third-year Data Science student with hands-on experience in data analysis, statistical reporting,
+      and building interactive dashboards for stakeholder decision-making. Built a <strong>credit risk classifier
+      achieving 0.90 ROC-AUC</strong> using XGBoost and feature engineering. Proficient in Python, SQL, Excel,
+      and Power BI, with strong data cleaning, visualization, and stakeholder communication skills.
+      Seeking a data analyst internship to turn messy real-world data into decisions that matter.
+    </p>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">02</span><h2 class="sec-title">Technical Skills</h2><div class="rule"></div></div>
+    <div class="matrix">
+      <div class="matrix-cell">
+        <h3>Languages</h3>
+        <p>Python, SQL</p>
+      </div>
+      <div class="matrix-cell">
+        <h3>Data Analysis</h3>
+        <p>Statistical analysis, data cleaning &amp; wrangling, data modeling, reporting &amp; dashboarding</p>
+      </div>
+      <div class="matrix-cell">
+        <h3>Libraries</h3>
+        <p>Pandas, NumPy, Scikit-learn, XGBoost, Matplotlib, Seaborn</p>
+      </div>
+      <div class="matrix-cell">
+        <h3>BI &amp; Visualization</h3>
+        <p>Excel (Pivot Tables, Power Query), Power BI, Tableau, Looker Studio, Jupyter Notebook</p>
+      </div>
+      <div class="matrix-cell">
+        <h3>Data Engineering</h3>
+        <p>ETL pipelines, SQL querying, PostgreSQL database management</p>
+      </div>
+      <div class="matrix-cell">
+        <h3>Other</h3>
+        <p>Stakeholder communication, data storytelling, Git / GitHub</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">03</span><h2 class="sec-title">Experience</h2><div class="rule"></div></div>
+    <div class="exp-card">
+      <div class="exp-top">
+        <div>
+          <div class="exp-role">Data Visualization Intern — <span class="exp-org">Excellerate</span></div>
+        </div>
+        <div class="exp-date">Jun 2026 – Jul 2026</div>
+      </div>
+      <div class="exp-tech">Excel · Supabase (PostgreSQL) · pgAdmin 4 · Looker Studio</div>
+      <ul class="exp-list">
+        <li>Cleaned and integrated <span class="chip">3,524</span> SEVIS + <span class="chip">6,875</span> applicant records, removing <span class="chip risk">27,466</span> duplicate rows and resolving 6 categories of data corruption.</li>
+        <li>Built a 7-tab live compliance dashboard in Looker Studio (PostgreSQL / Supabase) covering eligibility, document gaps, SEVIS fee tracking, and an executive summary.</li>
+        <li>Analyzed 3,524 F-1 students across <span class="chip">66</span> countries; found only <span class="chip">45%</span> fully compliant and <span class="chip risk">53%</span> missing SEVIS fee payment — the top compliance risk.</li>
+        <li>Validated dashboard metrics via SQL in pgAdmin; documented 5 critical risks and delivered recommendations to stakeholders.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">04</span><h2 class="sec-title">Projects</h2><div class="rule"></div></div>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <span class="proj-date">Jan 2025 – Jan 2026</span>
+        <h3>Credit Risk &amp; Loan Delinquency Predictor</h3>
+        <span class="proj-tech">Python · XGBoost · Scikit-learn · SQL · ipywidgets</span>
+        <ul>
+          <li>Built an XGBoost model on real-world banking data to predict loan default risk, handling class imbalance via SMOTE and threshold tuning.</li>
+          <li>Engineered 15+ features from raw transaction data.</li>
+          <li>Delivered an interactive ipywidgets dashboard for risk officers to flag high-risk applicants in real time.</li>
+        </ul>
+        <div class="metric-strip">
+          <div class="metric"><span class="m-num">0.90</span><span class="m-lbl">ROC-AUC</span></div>
+          <div class="metric"><span class="m-num">0.80</span><span class="m-lbl">F1-Score</span></div>
+          <div class="metric"><span class="m-num">15+</span><span class="m-lbl">Features Engineered</span></div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <span class="proj-date">Jan 2024 – Dec 2024</span>
+        <h3>Predictive Property Pricing &amp; Market Sentiment Dashboard</h3>
+        <span class="proj-tech">Python · Scikit-learn · Power BI · Pandas</span>
+        <ul>
+          <li>Built regression models (Linear, Random Forest, Gradient Boosting) to predict residential property prices.</li>
+          <li>Designed a 3-page Power BI dashboard on market sentiment, seasonality, and price distribution.</li>
+          <li>Automated the ETL pipeline, cutting data-prep time significantly.</li>
+        </ul>
+        <div class="metric-strip">
+          <div class="metric"><span class="m-num">3</span><span class="m-lbl">Model Types</span></div>
+          <div class="metric"><span class="m-num">~70%</span><span class="m-lbl">Prep Time Cut</span></div>
+          <div class="metric"><span class="m-num">3-pg</span><span class="m-lbl">BI Dashboard</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="github">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">05</span><h2 class="sec-title">Live from GitHub</h2><div class="rule"></div></div>
+    <div class="gh-status" id="gh-status">Fetching latest repositories from github.com/Shiv-pbx095…</div>
+    <div class="gh-grid" id="gh-grid"></div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">06</span><h2 class="sec-title">Education &amp; Certifications</h2><div class="rule"></div></div>
+
+    <div class="edu-row">
+      <div>
+        <div class="edu-school">B.Tech, Data Science — Oriental College of Technology, Bhopal</div>
+        <div class="edu-note">Coursework: Statistics, Machine Learning, Data Structures, Database Management, Data Visualization. Data Science Club member; NSS Community Volunteer.</div>
+      </div>
+      <div class="edu-date">Jul 2023 – Jul 2027</div>
+    </div>
+
+    <div style="margin-top:28px;" class="cert-list">
+      <div class="cert-row">
+        <span class="cert-name">Python for Data Science</span>
+        <span class="cert-org">IBM SkillsBuild · 2024</span>
+      </div>
+      <div class="cert-row">
+        <span class="cert-name">Data Visualization with Python</span>
+        <span class="cert-org">IBM SkillsBuild · 2025</span>
+      </div>
+      <div class="cert-row">
+        <span class="cert-name">Job Simulation in Data Analytics</span>
+        <span class="cert-org">Tata iQ by Forge · 2025</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h2>Let's talk data.</h2>
+    <p>Open to data analyst internships where I can turn messy, real-world data into dashboards and decisions that matter.</p>
+    <div class="foot-links">
+      <a href="mailto:shivanand7415@outlook.com">shivanand7415@outlook.com</a>
+      <a href="tel:+916232530759">+91 62325 30759</a>
+      <a href="https://linkedin.com/in/shivanand-tiwari" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Shiv-pbx095" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="foot-bottom">
+      <span>Shivanand Tiwari — Bhopal, India</span>
+      <span>Built with real numbers, not filler copy.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Animate the compliance bars once the dashboard scrolls into view
+  const bars = document.querySelectorAll('.bar-fill');
+  const dash = document.getElementById('dash');
+  const runBars = () => {
+    bars.forEach(b => { b.style.width = b.dataset.target + '%'; });
+  };
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { runBars(); io.disconnect(); }
+      });
+    }, { threshold: 0.4 });
+    io.observe(dash);
+  } else {
+    runBars();
+  }
+
+  // Live pull of public repos from GitHub
+  const GH_USER = 'Shiv-pbx095';
+  const ghStatus = document.getElementById('gh-status');
+  const ghGrid = document.getElementById('gh-grid');
+
+  const timeAgo = (dateStr) => {
+    const diffDays = Math.floor((Date.now() - new Date(dateStr)) / 86400000);
+    if (diffDays < 1) return 'today';
+    if (diffDays === 1) return '1 day ago';
+    if (diffDays < 30) return diffDays + ' days ago';
+    const months = Math.floor(diffDays / 30);
+    if (months < 12) return months + (months === 1 ? ' month ago' : ' months ago');
+    const years = Math.floor(months / 12);
+    return years + (years === 1 ? ' year ago' : ' years ago');
+  };
+
+  fetch(`https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=6`, {
+    headers: { 'Accept': 'application/vnd.github+json' }
+  })
+    .then(res => {
+      if (!res.ok) throw new Error('GitHub API responded with ' + res.status);
+      return res.json();
+    })
+    .then(repos => {
+      const visible = repos.filter(r => !r.fork).slice(0, 4);
+      if (!visible.length) {
+        ghStatus.textContent = 'No public repositories found yet.';
+        return;
+      }
+      ghStatus.textContent = `${visible.length} most recently updated public repositories, pulled live just now.`;
+      ghGrid.innerHTML = visible.map(r => `
+        <a class="gh-card" href="${r.html_url}" target="_blank" rel="noopener">
+          <div class="gh-card-top">
+            <span class="gh-name">${r.name}</span>
+            <span class="gh-lang">${r.language || '—'}</span>
+          </div>
+          <div class="gh-desc">${r.description ? r.description : 'No description provided.'}</div>
+          <div class="gh-meta">
+            <span>★ ${r.stargazers_count}</span>
+            <span>updated ${timeAgo(r.pushed_at)}</span>
+          </div>
+        </a>
+      `).join('');
+    })
+    .catch(() => {
+      ghStatus.innerHTML = `Couldn't reach the GitHub API right now. See the repositories directly at
+        <a href="https://github.com/${GH_USER}" target="_blank" rel="noopener">github.com/${GH_USER}</a>.`;
+    });
+</script>
+
+</body>
+</html>
